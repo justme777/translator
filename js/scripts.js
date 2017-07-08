@@ -1,24 +1,30 @@
 function analyzeText(text) {
     var allWords = text.split(/\s+/);
-    var str = "a,in,the,but,on,to,into,onto";
-    var excludedWords = str.split(',');
+    $('#spWordsCount').text(allWords.length);
+    var excludedWords = excludedWordsStr.split(',');
     res = [];
+    resWords = [];
     for (var i = 0; i < allWords.length; i++) {
-        if ($.inArray(allWords[i], excludedWords) == -1) {
-            //alert(allWords[i]);
-            k = $.inArray(allWords[i], res); 
+        var word = allWords[i].toLowerCase();
+        if ($.inArray(word, excludedWords) == -1) {
+            k = $.inArray(word, resWords);
+            console.log("k=" + k + " word=" + word);
             if (k == -1) {
                 var obj = {};
-                obj.Name = allWords[i];
-                obj.Translation = allWords[i];
+                obj.Name = word;
+                obj.Translation = word;
                 obj.Frequency = 1;
                 res.push(obj);
+                resWords.push(word);
             } else {
                 res[k].Frequency = res[k].Frequency + 1;
             }
         }
     }
-
+    delete allWords;
+    delete excludedWords;
+    delete resWords;
+    res =_.orderBy(res, ['Frequency'], ['desc']);
     fillTable(res);
 }
 
@@ -36,12 +42,17 @@ function fillTable(arr) {
 function setFormVisibility(isVisible) {
     if (isVisible) {
         $('#textBlock').show();
+        $('#resultsBlock').css('display','none');
         $('#lnkShowForm').css('display', 'none');
-        $('#results').css('display', 'none');
         $("#results tbody").empty();
     } else {
         $('#textBlock').hide();
         $('#lnkShowForm').css('display', 'block');
-        $('#results').css('display', 'block');
+        $('#resultsBlock').css('display', 'block');
     }
 }
+
+var excludedWordsStr = "a,in,the,but,on,to,into,onto,and,of,with,when,has,was,is,were," +
+    "this,its,it,by,will,as,for,have,an,some,many,that,out,can,at,from,"
+    + "not,if,which,"
+    +"one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve";

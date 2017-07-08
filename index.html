@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Simple Personal</title>
+    <title>My Translator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection, tv" />
     <link rel="stylesheet" href="css/style-print.css" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -46,24 +47,28 @@
                 <div class="box">
                     <div class="box-top"></div>
                     <div class="box-in">
-                        <a href="#" id="lnkShowForm" style="display:none;">Показать форму</a>
+                        <a href="#" id="lnkShowForm" style="display:none;">Display form</a>
                         <div id="textBlock">
                             <label>Input text</label>
-                            <textarea id="text" style="width:100%;height:200px;">paste your text here</textarea>
+                            <textarea id="text" style="width:100%;height:200px;" placeholder="paste your text here..."></textarea>
                             <button id="btnAnalyze">Analyze</button>
                         </div>
-                        <table border="1px" id="results" class="table" width="100%" style="width:100%;display:none">
-                            <thead>
-                                <tr>
-                                    <th>Word</th>
-                                    <th>Frq</th>
-                                    <th>Translation</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr></tr>
-                            </tbody>
-                        </table>
+                        <div id="resultsBlock" style="display:none">
+                            <div><label>Words count: </label><span id="spWordsCount"></span></div>
+                            <table border="1px" id="results" class="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Word</th>
+                                        <th>Frq</th>
+                                        <th>Translation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="box-bottom">
