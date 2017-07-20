@@ -1,21 +1,64 @@
-<a href="#" id="lnkShowForm" style="display:none;">Display form</a>
-                        <div id="textBlock">
-                            <label>Input text</label>
-                            <textarea id="text" style="width:100%;height:200px;" placeholder="paste your text here..."></textarea>
-                            <button id="btnAnalyze">Analyze</button>
-                        </div>
-                        <div id="resultsBlock" style="display:none">
-                            <div><label>Words count: </label><span id="spWordsCount"></span></div>
-                            <table border="1px" id="results" class="table" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Word</th>
-                                        <th>Frq</th>
-                                        <th>Translation</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr></tr>
-                                </tbody>
-                            </table>
-                        </div>
+﻿<div id="wrapper">
+  <div class="title">
+    <div class="title-top">
+      <div class="title-left">
+        <div class="title-right">
+          <div class="title-bottom">
+            <div class="title-top-left">
+              <div class="title-bottom-left">
+                <div class="title-top-right">
+                  <div class="title-bottom-right">
+                    <h1><a href="#">MY <span>TRANSLATOR</span></a></h1>
+                    <p>This is what you need in learning a foreign language</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="noscreen" />
+  <div class="content">
+    <div class="column-left">
+      <h3>MENU</h3>
+      <a href="#skip-menu" class="hidden">Skip menu</a>
+      <ul class="menu">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a routerLink="/analyzer">Text Analyzer</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li class="last"><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div id="skip-menu"></div>
+    <div class="column-right">
+      <div class="box">
+        <div class="box-top"></div>
+        <div class="box-in">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <div class="box-bottom">
+        <hr class="noscreen" />
+      </div>
+    </div>
+    <div class="cleaner">&nbsp;</div>
+
+    <script src="./assets/js/scripts.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#btnAnalyze').click(function () {
+          var txt = $('#text').val();
+          analyzeText(txt);
+        });
+
+        $('#lnkShowForm').click(function () {
+          setFormVisibility(true);
+        })
+      })
+
+    </script>
+  </div>
+</div>
+
