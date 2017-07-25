@@ -1,52 +1,81 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-text-analyzer',
-  templateUrl: './text-analyzer.component.html',
-  styleUrls: ['./text-analyzer.component.css']
+    selector: 'app-text-analyzer',
+    templateUrl: './text-analyzer.component.html',
+    styleUrls: ['./text-analyzer.component.css']
 })
 export class TextAnalyzerComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  title = 'Text Analyzer';
-  text = new Observable();
-  newWords = [];
-  excludedWords = [];
+    title = 'Text Analyzer';
+    text = '';
+    newWords = null;
+    excludedWords = [];
 
-  myFunction = function () {
-      console.log('myFunction()');
-      this.text.setValue("some text 2");
-      let arr = this.getNewWords(this.text);
+    myFunction = function () {
+        console.log('myFunction()');
+        this.text.setValue("some text 2");
+        let arr = this.getNewWords(this.text);
+    }
 
-  }
+    getNewWords = function () {
+        let newWords = null;
+        var allWords = this.text.toLowerCase().split(/\s+/);
+        var res = [];
+        var excludedWords = this.getExcludedWords();
+        for (let word of allWords) {
+            if (word && excludedWords.indexOf(word) == -1) {
+                let isExist = false;
+                for (let i in newWords) {
+                    if (newWords[i].name == word) {
+                        newWords[i].frequency++;
+                        isExist = true;
+                        break;
+                    }
+                }
+                if (!isExist) {
+                    if (newWords == null) newWords = new Array<Word>();
+                    let newWord = new Word();
+                    newWord.name = word;
+                    newWord.frequency = 1;
+                    newWord.translation = "";
+                    newWords.push(newWord);
+                }
+            }
 
-  getNewWords = function () {
-      var allWords = this.text.split(/\s+/);
-      var res = [];
-      this.excludedWords = this.getExcludedWords();
-      for (let word of allWords) {
-          console.log(word);
-      }
+        }
+        if (newWords != null)
+            var res: any[] = newWords.sort((obj1: Word, obj2: Word) => {
+                if (obj1.frequency < obj2.frequency) {
+                    return 1;
+                }
 
-      return res;
-  }
+                if (obj1.frequency > obj2.frequency) {
+                    return -1;
+                }
 
-  getExcludedWords = function () {
-      var excludedWordsStr = "a,in,the,but,on,to,into,onto,and,of,with,when,has,was,is,were," +
-          "this,its,it,by,will,as,for,have,an,some,many,that,out,can,at,from,"
-          + "not,if,which,"
-          + "one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve";
-      return excludedWordsStr.split(',');
-  }
+                return 0;
+            });
 
-  onBtnAnalyzeClick() {
-      console.log('onBtnAnalyzeClick();');
-  }
+        return res;
+    }
+
+    getExcludedWords = function () {
+        var excludedWordsStr = "a,in,the,but,on,to,into,onto,and,of,with,when,has,was,is,were," +
+            "this,its,it,by,will,as,for,have,an,some,many,that,out,can,at,from,"
+            + "not,if,which,"
+            + "one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,my,your";
+        return excludedWordsStr.split(',');
+    }
+
+    onBtnAnalyzeClick() {
+        this.newWords = this.getNewWords();
+    }
 }
 
 export class Word {
