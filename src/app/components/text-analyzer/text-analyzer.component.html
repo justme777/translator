@@ -16,7 +16,7 @@
     </thead>
     <tbody *ngFor="let item of newWords">
       <tr>
-        <td>{{item.name}}</td>
+        <td><span (click)="translateWord(item)">{{item.name}}</span></td>
         <td>{{item.frequency}}</td>
         <td>{{item.translation}}</td>
       </tr>

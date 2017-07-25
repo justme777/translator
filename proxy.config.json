@@ -1,0 +1,9 @@
+﻿{
+  "/api/*": {
+    "target": "https://translate.google.com",
+    "secure": false,
+    "pathRewrite": { "^/api": "" },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

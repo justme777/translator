@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { TextAnalyzerComponent } from './components/text-analyzer/text-analyzer.component';
 import { HomeComponent } from './components/home/home.component';
 
+import { DataService } from './services/data.service';
+
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'analyzer', component: TextAnalyzerComponent }
@@ -25,7 +27,7 @@ const appRoutes: Routes = [
       HttpModule,
       RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

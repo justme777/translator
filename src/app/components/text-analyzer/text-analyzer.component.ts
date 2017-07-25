@@ -1,4 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
+
 
 @Component({
     selector: 'app-text-analyzer',
@@ -7,20 +9,26 @@
 })
 export class TextAnalyzerComponent implements OnInit {
 
-    constructor() { }
+    constructor(private dataService: DataService) {
+        console.log('constructor ran..');
+    }
 
     ngOnInit() {
     }
 
     title = 'Text Analyzer';
-    text = '';
+    text = 'book';
     newWords = null;
     excludedWords = [];
 
-    myFunction = function () {
-        console.log('myFunction()');
-        this.text.setValue("some text 2");
-        let arr = this.getNewWords(this.text);
+    translateWord(word: Word) {
+        this.dataService.getTranslation(word.name).subscribe((data) => {
+            word.translation = data;
+        });
+    }
+
+    translateWord2() {
+        console.log('');
     }
 
     getNewWords = function () {
